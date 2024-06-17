@@ -1,0 +1,13 @@
+body.dark-mode {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+  }
+  
+  body.dark-mode img, body.dark-mode video {
+    filter: brightness(0.8) !important;
+  }
+  
+  body.blue-light-filter {
+    filter: sepia(30%) hue-rotate(190deg) saturate(75%);
+  }
+  

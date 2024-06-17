@@ -1,0 +1,44 @@
+{
+    "manifest_version": 2,
+    "name": "Veil of Nyx",
+    "version": "1.0",
+    "description": "Veil of Nyx: the goddess of the night has spoken and bequeaths her veil unto you with the gift of darkness, protecting you from blinding light in the dead of the night.",
+    "permissions": [
+      "storage",
+      "activeTab",
+      "webNavigation"
+    ],
+    "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["dark-mode.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "applications": {
+    "gecko": {
+      "id": "smart-dark-mode@example.com",
+      "strict_min_version": "53.0"
+    }
+  }
+}
