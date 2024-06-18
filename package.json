@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "web-ext build --source-dir=src --artifacts-dir=web-ext-artifacts"
+  },
   "dependencies": {
     "web-ext": "^8.1.0"
   }

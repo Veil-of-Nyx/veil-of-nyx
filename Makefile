@@ -1,6 +1,6 @@
 # Define variables
 WEB_EXT=node_modules/.bin/web-ext
-SOURCE_DIR=.	
+SOURCE_DIR=.
 ARTIFACTS_DIR=./web-ext-artifacts
 CHROMIUM_BINARY=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
 FIREFOX_BINARY=/Applications/Firefox.app/Contents/MacOS/firefox
@@ -29,6 +29,26 @@ lint: ## Lint the extension code
 clean: ## Clean the build artifacts
 	@rm -rf $(ARTIFACTS_DIR)
 
+# Publish to Chrome Web Store
+publish/chrome: build ## Publish to Chrome Web Store
+	@google-chrome-upload \
+		--client-id=$$CHROME_CLIENT_ID \
+		--client-secret=$$CHROME_CLIENT_SECRET \
+		--refresh-token=$$CHROME_REFRESH_TOKEN \
+		--app-id=$$CHROME_EXTENSION_ID \
+		--zip-file=$(ARTIFACTS_DIR)/veil-of-nyx.zip
+
+# Publish to Firefox Add-ons
+publish/firefox: build ## Publish to Firefox Add-ons
+	@wext-release \
+		--api-key=$$AMO_JWT_ISSUER \
+		--api-secret=$$AMO_JWT_SECRET \
+		--source-dir=$(ARTIFACTS_DIR)
+
+# Create GitHub Release
+release/github: build ## Create GitHub Release
+	@gh release create $(TAG_NAME) $(ARTIFACTS_DIR)/veil-of-nyx.zip -t $(TAG_NAME) -n "Release $(TAG_NAME)"
+
 # Help target to list all available commands
 help: ## Show this help
 	@echo "\nAvailable commands:\n"
@@ -36,7 +56,7 @@ help: ## Show this help
 	@echo ""
 
 # Phony targets
-.PHONY: install run/firefox run/chrome build lint clean help
+.PHONY: install run/firefox run/chrome build lint clean help publish/chrome publish/firefox release/github
 
 # Default target
 .DEFAULT_GOAL := help
