@@ -2,13 +2,41 @@
 <html>
 <head>
   <style>
-    body { width: 200px; }
-    button { width: 100%; margin: 5px 0; }
+    :root {
+      --brightness: 100;
+      --contrast: 100;
+      --blue-light-filter: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      filter: brightness(calc(var(--brightness) / 100)) contrast(calc(var(--contrast) / 100));
+    }
+
+    img, video {
+      filter: var(--blue-light-filter) contrast(1.1);
+    }
+
+    .control {
+      margin: 10px 0;
+    }
   </style>
 </head>
 <body>
+  <h1>Veil of Nyx</h1>
   <button id="toggle-dark-mode">Toggle Dark Mode</button>
-  <button id="open-options">Options</button>
+  <div class="control">
+    <label for="brightness">Brightness:</label>
+    <input type="range" id="brightness" min="0" max="200" value="100">
+  </div>
+  <div class="control">
+    <label for="contrast">Contrast:</label>
+    <input type="range" id="contrast" min="0" max="200" value="100">
+  </div>
+  <div class="control">
+    <label for="blue-light-filter">Blue Light Filter:</label>
+    <input type="checkbox" id="blue-light-filter">
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>

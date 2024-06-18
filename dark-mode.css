@@ -10,4 +10,3 @@ body.dark-mode {
   body.blue-light-filter {
     filter: sepia(30%) hue-rotate(190deg) saturate(75%);
   }
-  
