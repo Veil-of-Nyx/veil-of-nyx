@@ -39,6 +39,7 @@ jobs:
           CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
           CHROME_CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
           CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+        continue-on-error: true
 
       - name: Publish to Firefox Add-ons
         if: matrix.browser == 'firefox'
@@ -46,6 +47,7 @@ jobs:
         env:
           AMO_JWT_ISSUER: ${{ secrets.AMO_JWT_ISSUER }}
           AMO_JWT_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        continue-on-error: true
 
       - name: Create GitHub Release
         if: matrix.browser == 'github'
@@ -54,5 +56,3 @@ jobs:
           make release/github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    continue-on-error: matrix.browser != 'github'
